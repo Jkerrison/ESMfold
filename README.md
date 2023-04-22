@@ -4,7 +4,7 @@ My attempt to implement ESMfold
 
 ## Demo App
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://ESMfold.streamlitapp.com/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://jkerrison-esmfold-streamlit-app-a5b62n.streamlit.app/)
 
 ## Section Heading
 

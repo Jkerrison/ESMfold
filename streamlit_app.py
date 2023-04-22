@@ -25,7 +25,7 @@ def render_mol(pdb):
 # Protein sequence input 
 DEFAULT_SEQ = ""
 txt = st.sidebar.text_area('Input sequence', DEFAULT_SEQ, height=275)
-
+line_data=''
     
 uploaded_files = st.sidebar.file_uploader("Upload Fasta files", accept_multiple_files=True)
 list_of_files={"Name":[],"Sequence":[]}

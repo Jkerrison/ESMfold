@@ -31,8 +31,9 @@ uploaded_files = st.sidebar.file_uploader("Upload Fasta files", accept_multiple_
 list_of_files={"Name":[],"Sequence":[]}
 for uploaded_file in uploaded_files:
     bytes_data = uploaded_file.read()
-    st.write("filename:", uploaded_file.name)
-    st.write(bytes_data)
+    bytes_data = bytes_data.split('\n')[1]
+    #st.write("filename:", uploaded_file.name)
+    #st.write(bytes_data)
     list_of_files["Name"].append(uploaded_file.name)
     list_of_files["Sequence"].append(bytes_data)
 st.write(list_of_files)

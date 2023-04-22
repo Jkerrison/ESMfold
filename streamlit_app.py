@@ -35,7 +35,7 @@ for uploaded_file in uploaded_files:
     line_data = str_data.split('\n')[1]
     #st.write("filename:", uploaded_file.name)
     #st.write(bytes_data)
-    list_of_files["Name"].append(uploaded_file.name)
+    list_of_files["Name"].append(uploaded_file.name[:-3])
     list_of_files["Sequence"].append(line_data)
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded',

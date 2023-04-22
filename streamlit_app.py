@@ -38,11 +38,13 @@ for uploaded_file in uploaded_files:
     list_of_files["Name"].append(uploaded_file.name)
     list_of_files["Sequence"].append(line_data)
 st.write(list_of_files)
+
+
     
 
 
 # ESMfold
-def update(sequence=txt):
+def update(name,sequence):
     
  
     headers = {
@@ -76,6 +78,9 @@ def update(sequence=txt):
 
 
 
+for key, value in list_of_files.items():
+    update(key, value)
+    
 predict = st.sidebar.button('Predict', on_click=update)
 
 

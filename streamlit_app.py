@@ -44,8 +44,9 @@ for uploaded_file in uploaded_files:
     name = line_data[:3] + line_data[-3:]
     pdb_string = response.content.decode('utf-8')
 
-    with open('predicted.pdb', 'w') as f:
+    with open(f'{uploaded_file.name}.pdb', 'w') as f:
         f.write(pdb_string)
+    
      
     
 st.write(list_of_files)

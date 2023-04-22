@@ -46,6 +46,12 @@ for uploaded_file in uploaded_files:
 
     with open(f'{uploaded_file.name}.pdb', 'w') as f:
         f.write(pdb_string)
+    st.download_button(
+        label="Download PDB",
+        data=pdb_string,
+        file_name=f'{uploaded_file.name}.pdb',
+        mime='text/plain',
+    )
     
      
     

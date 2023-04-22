@@ -78,8 +78,6 @@ def update(name,sequence):
 
 
 
-for key, value in list_of_files.items():
-    update(key, value)
     
 predict = st.sidebar.button('Predict', on_click=update('',txt))
 

@@ -41,7 +41,7 @@ for uploaded_file in uploaded_files:
         'Content-Type': 'application/x-www-form-urlencoded',
     }
     response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=line_data)
-    name = sequence[:3] + sequence[-3:]
+    name = line_data[:3] + line_data[-3:]
     pdb_string = response.content.decode('utf-8')
 
     with open('predicted.pdb', 'w') as f:

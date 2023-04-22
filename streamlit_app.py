@@ -45,7 +45,7 @@ st.write(list_of_files)
 
 
 # ESMfold
-def update(sequence):
+def update(sequence=txt):
     
  
     headers = {
@@ -77,10 +77,11 @@ def update(sequence):
         mime='text/plain',
     )
 
-
+def loop():
+    update
 
     
-predict = st.sidebar.button('Predict', on_click=update)
+predict = st.sidebar.button('Predict', on_click=loop)
 
 
 if not predict:

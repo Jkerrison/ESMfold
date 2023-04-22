@@ -28,10 +28,15 @@ txt = st.sidebar.text_area('Input sequence', DEFAULT_SEQ, height=275)
 
     
 uploaded_files = st.sidebar.file_uploader("Upload Fasta files", accept_multiple_files=True)
+list_of_files={"Name":[],"Sequence":[]}
 for uploaded_file in uploaded_files:
     bytes_data = uploaded_file.read()
     st.write("filename:", uploaded_file.name)
     st.write(bytes_data)
+    list_of_files["Name"].append(uploaded_file.name)
+    list_of_files["Sequence"].append(bytes_data)
+st.write(list_of_files)
+    
 
 
 # ESMfold

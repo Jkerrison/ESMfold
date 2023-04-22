@@ -14,7 +14,7 @@ def render_mol(pdb):
     pdbview = py3Dmol.view()
     pdbview.addModel(pdb,'pdb')
     pdbview.setStyle({'cartoon':{'color':'spectrum'}})
-    pdbview.setBackgroundColor('white')#('0xeeeeee')
+    pdbview.setBackgroundColor('black')#('0xeeeeee')
     pdbview.zoomTo()
     pdbview.zoom(2, 800)
     pdbview.spin(True)
@@ -23,7 +23,7 @@ def render_mol(pdb):
     
 
 # Protein sequence input 
-DEFAULT_SEQ = "MGSSHHHHHHSSGLVPRGSHMRGPNPTAASLEASAGPFTVRSFTVSRPSGYGAGTVYYPTNAGGTVGAIAIVPGYTARQSSIKWWGPRLASHGFVVITIDTNSTLDQPSSRSSQQMAALRQVASLNGTSSSPIYGKVDTARMGVMGWSMGGGGSLISAANNPSLKAAAPQAPWDSSTNFSSVTVPTLIFACENDSIAPVNSSALPIYDSMSRNAKQFLEINGGSHSCANSGNSNQALIGKKGVAWMKRFMDNDTRYSTFACENPNSTRVSDFRTANCSLEDPAANKARKEAELAAATAEQ"
+DEFAULT_SEQ = ""
 txt = st.sidebar.text_area('Input sequence', DEFAULT_SEQ, height=275)
 
 # ESMfold

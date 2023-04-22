@@ -77,11 +77,9 @@ def update(sequence=txt):
         mime='text/plain',
     )
 
-def loop():
-    update
 
     
-predict = st.sidebar.button('Predict', on_click=loop)
+predict = st.sidebar.button('Predict', on_click=update)
 
 
 if not predict:

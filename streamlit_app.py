@@ -37,7 +37,7 @@ for uploaded_file in uploaded_files:
     #st.write(bytes_data)
     list_of_files["Name"].append(uploaded_file.name)
     list_of_files["Sequence"].append(line_data)
-    update
+    
 st.write(list_of_files)
 
 

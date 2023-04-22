@@ -79,7 +79,7 @@ def update(name,sequence):
 
 
     
-predict = st.sidebar.button('Predict', on_click=update('',txt))
+predict = st.sidebar.button('Predict', on_click=update)
 
 
 if not predict:

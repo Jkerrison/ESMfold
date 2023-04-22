@@ -37,6 +37,16 @@ for uploaded_file in uploaded_files:
     #st.write(bytes_data)
     list_of_files["Name"].append(uploaded_file.name)
     list_of_files["Sequence"].append(line_data)
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+    }
+    response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=line_data)
+    name = sequence[:3] + sequence[-3:]
+    pdb_string = response.content.decode('utf-8')
+
+    with open('predicted.pdb', 'w') as f:
+        f.write(pdb_string)
+     
     
 st.write(list_of_files)
 

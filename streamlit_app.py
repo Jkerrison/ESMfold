@@ -44,12 +44,12 @@ for uploaded_file in uploaded_files:
     name = line_data[:3] + line_data[-3:]
     pdb_string = response.content.decode('utf-8')
 
-    with open(f'{uploaded_file.name}.pdb', 'w') as f:
+    with open(f'{uploaded_file.name[:-3]}.pdb', 'w') as f:
         f.write(pdb_string)
     st.download_button(
         label="Download PDB",
         data=pdb_string,
-        file_name=f'{uploaded_file.name}.pdb',
+        file_name=f'{uploaded_file.name[:-3]}.pdb',
         mime='text/plain',
     )
     

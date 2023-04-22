@@ -26,6 +26,14 @@ def render_mol(pdb):
 DEFAULT_SEQ = ""
 txt = st.sidebar.text_area('Input sequence', DEFAULT_SEQ, height=275)
 
+    
+uploaded_files = st.sidebar.file_uploader("Upload Fasta files", accept_multiple_files=True)
+for uploaded_file in uploaded_files:
+    bytes_data = uploaded_file.read()
+    st.write("filename:", uploaded_file.name)
+    st.write(bytes_data)
+
+
 # ESMfold
 def update(sequence=txt):
     headers = {
@@ -57,12 +65,6 @@ def update(sequence=txt):
         mime='text/plain',
     )
 
-    
-uploaded_files = st.file_uploader("Choose a CSV file", accept_multiple_files=True)
-for uploaded_file in uploaded_files:
-    bytes_data = uploaded_file.read()
-    st.write("filename:", uploaded_file.name)
-    st.write(bytes_data)
 
 
 predict = st.sidebar.button('Predict', on_click=update)

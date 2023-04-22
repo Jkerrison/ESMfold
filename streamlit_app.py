@@ -44,7 +44,7 @@ st.write(list_of_files)
 
 
 # ESMfold
-def update(name,sequence):
+def update(sequence=txt):
     
  
     headers = {

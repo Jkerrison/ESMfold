@@ -1,8 +1,6 @@
-```
-⬆️ (Replace above with your app's name)
-```
+# ESMfold
 
-Description of the app ...
+My attempt to implement ESMfold
 
 ## Demo App
 

@@ -3,7 +3,8 @@ from stmol import showmol
 import py3Dmol
 import requests
 import biotite.structure.io as bsio
-
+import os
+from zipfile import ZipFile
 
 st.sidebar.title('ESMFold')
 st.sidebar.write('[*ESMFold*](https://esmatlas.com/about) is an end-to-end single sequence protein structure predictor based on the ESM-2 language model. For more information, read the [research article](https://www.biorxiv.org/content/10.1101/2022.07.20.500902v2) and the [news article](https://www.nature.com/articles/d41586-022-03539-1) published in *Nature*.')
@@ -26,7 +27,14 @@ def render_mol(pdb):
 DEFAULT_SEQ = ""
 txt = st.sidebar.text_area('Input sequence', DEFAULT_SEQ, height=275)
 line_data=''
-    
+
+
+
+#Directory
+directory = 'my_folder'
+if not os.path.exists(directory):
+    os.makedirs(directory)
+
 uploaded_files = st.sidebar.file_uploader("Upload Fasta files", accept_multiple_files=True)
 list_of_files={"Name":[],"Sequence":[]}
 for uploaded_file in uploaded_files:
@@ -44,7 +52,7 @@ for uploaded_file in uploaded_files:
     name = line_data[:3] + line_data[-3:]
     pdb_string = response.content.decode('utf-8')
 
-    with open(f'{uploaded_file.name[:-3]}.pdb', 'w') as f:
+    with open(f'{directory}/{uploaded_file.name[:-3]}.pdb', 'w') as f:
         f.write(pdb_string)
     st.download_button(
         label=f"Download {uploaded_file.name[:-3]}",
@@ -56,6 +64,17 @@ for uploaded_file in uploaded_files:
      
     
 st.write(list_of_files)
+
+with ZipFile(f'{directory}.zip', 'w') as zip:
+    for file in os.listdir(directory):
+        zip.write(os.path.join(directory, file), file)
+
+# create a download button for the zip file
+st.download_button(
+    label="Download all files as zip",
+    data=open(f'{directory}.zip', 'rb').read(),
+    file_name=f'{directory}.zip'
+)
 
 
     

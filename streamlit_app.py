@@ -119,4 +119,4 @@ predict = st.sidebar.button('Predict', on_click=update)
 
 
 if not predict:
-    st.warning('👈 Enter protein sequence data!')
+    st.sidebar.warning('Enter protein sequence data or upload 1 or more fasta files')

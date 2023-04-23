@@ -52,7 +52,7 @@ for uploaded_file in uploaded_files:
         file_name=f'{uploaded_file.name[:-3]}.pdb',
         mime='text/plain',
     )
-    
+    # save as third value of dictionary, add each item to a zip file for download
      
     
 st.write(list_of_files)

@@ -63,7 +63,7 @@ for uploaded_file in uploaded_files:
     # save as third value of dictionary, add each item to a zip file for download
      
     
-st.write(list_of_files)
+#st.write(list_of_files)
 
 with ZipFile(f'{directory}.zip', 'w') as zip:
     for file in os.listdir(directory):

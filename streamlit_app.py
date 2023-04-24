@@ -78,7 +78,7 @@ with ZipFile(f'{directory}.zip', 'w') as zip:
         zip.write(os.path.join(directory, file), file)
 
 # create a download button for the zip file
-st.download_button(
+st.sidebar.download_button(
     label="Download all files as zip",
     data=open(f'{directory}.zip', 'rb').read(),
     file_name=f'{directory}.zip'

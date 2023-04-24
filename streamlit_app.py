@@ -13,6 +13,7 @@ st.sidebar.write('[*ESMFold*](https://esmatlas.com/about) is an end-to-end singl
 
 # stmol
 def render_mol(pdb):
+    #make the bfactor array using numpy here, and then create a function to colour it 'bfactor_palette'
     pdbview = py3Dmol.view()
     pdbview.addModel(pdb,'pdb')
     pdbview.setStyle({'cartoon':{'color':'spectrum'}})

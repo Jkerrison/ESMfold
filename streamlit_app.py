@@ -34,8 +34,9 @@ line_data=''
 
 #Directory
 directory = 'my_folder'
-if not os.path.exists(directory):
-    os.makedirs(directory)
+#if not os.path.exists(directory):
+#This would save the directory from all previous sessions
+os.makedirs(directory)
 
 uploaded_files = st.sidebar.file_uploader("Upload Fasta files", accept_multiple_files=True)
 list_of_files={"Name":[],"Sequence":[]}

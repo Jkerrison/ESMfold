@@ -66,6 +66,7 @@ for uploaded_file in uploaded_files:
     )
     # save as third value of dictionary, add each item to a zip file for download
     struct = bsio.load_structure('predicted.pdb', extra_fields=["b_factor"])
+    st.write(struct)
     b_value = round(struct.b_factor.mean(), 4)
     
     # Display protein structure

@@ -27,9 +27,7 @@ def render_mol(pdb):
     
     
 
-# Protein sequence input 
-DEFAULT_SEQ = ""
-txt = st.sidebar.text_area('Input sequence', DEFAULT_SEQ, height=275)
+
 line_data=''
 
 
@@ -66,7 +64,7 @@ for uploaded_file in uploaded_files:
     )
     # save as third value of dictionary, add each item to a zip file for download
     struct = bsio.load_structure('predicted.pdb', extra_fields=["b_factor"])
-    st.write(pdb_string)
+    #st.write(pdb_string)
     b_value = round(struct.b_factor.mean(), 4)
     
     # Display protein structure
@@ -124,7 +122,9 @@ def update(sequence=line_data):
     )
 
 
-    
+# Protein sequence input 
+DEFAULT_SEQ = ""
+txt = st.sidebar.text_area('Input sequence', DEFAULT_SEQ, height=275)
 predict = st.sidebar.button('Predict', on_click=update)
 
 

@@ -65,7 +65,7 @@ for uploaded_file in uploaded_files:
     b_value = round(struct.b_factor.mean(), 4)
 
     # Display protein structure
-    st.subheader('Visualization of predicted protein structure')
+    st.subheader(f'Visualization of {uploaded_file.name[:-3]}')
     render_mol(pdb_string)
     
 #st.write(list_of_files)

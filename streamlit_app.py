@@ -61,7 +61,12 @@ for uploaded_file in uploaded_files:
         mime='text/plain',
     )
     # save as third value of dictionary, add each item to a zip file for download
-     
+    struct = bsio.load_structure('predicted.pdb', extra_fields=["b_factor"])
+    b_value = round(struct.b_factor.mean(), 4)
+
+    # Display protein structure
+    st.subheader('Visualization of predicted protein structure')
+    render_mol(pdb_string)
     
 #st.write(list_of_files)
 

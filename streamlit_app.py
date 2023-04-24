@@ -81,7 +81,17 @@ for uploaded_file in uploaded_files:
     
     # Display protein structure
     st.subheader(f'Visualization of {uploaded_file.name[:-3]}')
-    render_mol(pdb_string)
+    #render_mol(pdb_string)
+    pdbview = py3Dmol.view()
+    pdbview.addModel(pdb_string,'pdb_string')
+    #pdbview.setStyle({'cartoon':{'color':'spectrum'}})
+    pdbview.setStyle({'cartoon': {'color': bfactor_palette}})
+    #pdbview.setStyle( {}, {cartoon: { colorfunc: colorByBFactor }});
+    pdbview.setBackgroundColor('white')#('0xeeeeee')
+    pdbview.zoomTo()
+    pdbview.zoom(2, 800)
+    pdbview.spin(True)
+    showmol(pdbview, height = 500,width=800)
     
 #st.write(list_of_files)
 

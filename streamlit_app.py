@@ -14,7 +14,8 @@ st.sidebar.write('[*ESMFold*](https://esmatlas.com/about) is an end-to-end singl
 def render_mol(pdb):
     pdbview = py3Dmol.view()
     pdbview.addModel(pdb,'pdb')
-    pdbview.setStyle({'cartoon':{'color':'spectrum'}})
+    #pdbview.setStyle({'cartoon':{'color':'spectrum'}})
+    pdbview.setStyle({'cartoon': {'color': bfactor_palette}})
     #pdbview.setStyle( {}, {cartoon: { colorfunc: colorByBFactor }});
     pdbview.setBackgroundColor('white')#('0xeeeeee')
     pdbview.zoomTo()
@@ -64,7 +65,19 @@ for uploaded_file in uploaded_files:
     # save as third value of dictionary, add each item to a zip file for download
     struct = bsio.load_structure('predicted.pdb', extra_fields=["b_factor"])
     b_value = round(struct.b_factor.mean(), 4)
-
+    
+    
+    ###################################################################################################
+    bfactor_values = np.array(struct.b_factor)
+    bfactor_colors = np.array(['white', 'green', 'yellow', 'red'])
+    bfactor_scale = np.array([0, 10, 20, 30])
+    bfactor_indices = np.digitize(bfactor_values, bfactor_scale)
+    bfactor_palette = bfactor_colors[bfactor_indices]
+    
+    
+    
+    
+    
     # Display protein structure
     st.subheader(f'Visualization of {uploaded_file.name[:-3]}')
     render_mol(pdb_string)

@@ -63,7 +63,7 @@ for uploaded_file in uploaded_files:
     response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=line_data)
     name = line_data[:3] + line_data[-3:]
     pdb_string = response.content.decode('utf-8')
-    st.write(str(pdb_string))
+    
     with open(f'{directory}/{uploaded_file.name[:-3]}.pdb', 'w') as f:
         f.write(pdb_string)
     st.download_button(
@@ -72,6 +72,7 @@ for uploaded_file in uploaded_files:
         file_name=f'{uploaded_file.name[:-3]}.pdb',
         mime='text/plain',
     )
+    st.write(uploaded_file.name[:-3])
     # save as third value of dictionary, add each item to a zip file for download
     struct = bsio.load_structure('predicted.pdb', extra_fields=["b_factor"])
     #st.write(pdb_string)

@@ -63,7 +63,7 @@ for uploaded_file in uploaded_files:
     response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=line_data)
     name = line_data[:3] + line_data[-3:]
     pdb_string = response.content.decode('utf-8')
-
+    st.write(str(pdb_string))
     with open(f'{directory}/{uploaded_file.name[:-3]}.pdb', 'w') as f:
         f.write(pdb_string)
     st.download_button(

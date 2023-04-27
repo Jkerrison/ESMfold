@@ -44,49 +44,6 @@ if os.path.exists(directory):
     shutil.rmtree(directory)
 os.makedirs(directory)
 
-    
-    
-
-# ESMfold
-def update(sequence=line_data):
-    
- 
-    headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-    }
-    response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=sequence)
-    name = sequence[:3] + sequence[-3:]
-    pdb_string = response.content.decode('utf-8')
-
-    with open('predicted.pdb', 'w') as f:
-        f.write(pdb_string)
-
-    struct = bsio.load_structure('predicted.pdb', extra_fields=["b_factor"])
-    b_value = round(struct.b_factor.mean(), 4)
-
-    # Display protein structure
-    st.subheader('Visualization of predicted protein structure')
-    render_mol(pdb_string)
-
-    # plDDT value is stored in the B-factor field
-    st.subheader('plDDT')
-    st.write('plDDT is a per-residue estimate of the confidence in prediction on a scale from 0-100.')
-    st.info(f'plDDT: {b_value}')
-
-    st.download_button(
-        label="Download PDB",
-        data=pdb_string,
-        file_name='predicted.pdb',
-        mime='text/plain',
-    )
-
-
-# Protein sequence input 
-DEFAULT_SEQ = ""
-txt = st.sidebar.text_area('Input sequence', DEFAULT_SEQ, height=275)
-predict = st.sidebar.button('Predict', on_click=update)
-
-
 uploaded_files = st.sidebar.file_uploader("Upload Fasta files", accept_multiple_files=True)
 list_of_files={"Name":[],"Sequence":[]}
 for uploaded_file in uploaded_files:
@@ -134,6 +91,49 @@ st.sidebar.download_button(
     data=open(f'{directory}.zip', 'rb').read(),
     file_name=f'{directory}.zip'
 )
+
+    
+
+# ESMfold
+def update(sequence=line_data):
+    
+ 
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+    }
+    response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=sequence)
+    name = sequence[:3] + sequence[-3:]
+    pdb_string = response.content.decode('utf-8')
+
+    with open('predicted.pdb', 'w') as f:
+        f.write(pdb_string)
+
+    struct = bsio.load_structure('predicted.pdb', extra_fields=["b_factor"])
+    b_value = round(struct.b_factor.mean(), 4)
+
+    # Display protein structure
+    st.subheader('Visualization of predicted protein structure')
+    render_mol(pdb_string)
+
+    # plDDT value is stored in the B-factor field
+    st.subheader('plDDT')
+    st.write('plDDT is a per-residue estimate of the confidence in prediction on a scale from 0-100.')
+    st.info(f'plDDT: {b_value}')
+
+    st.download_button(
+        label="Download PDB",
+        data=pdb_string,
+        file_name='predicted.pdb',
+        mime='text/plain',
+    )
+
+
+# Protein sequence input 
+DEFAULT_SEQ = ""
+txt = st.sidebar.text_area('Input sequence', DEFAULT_SEQ, height=275)
+predict = st.sidebar.button('Predict', on_click=update)
+
+
 
 
     

@@ -44,7 +44,7 @@ if os.path.exists(directory):
     shutil.rmtree(directory)
 os.makedirs(directory)
 
-uploaded_files = st.sidebar.file_uploader("Upload Fasta files", accept_multiple_files=True)
+uploaded_files = st.file_uploader("Upload Fasta files", accept_multiple_files=True)
 list_of_files={"Name":[],"Sequence":[]}
 for uploaded_file in uploaded_files:
     bytes_data = uploaded_file.read()

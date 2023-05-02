@@ -5,7 +5,6 @@ import requests
 import biotite.structure.io as bsio
 import os
 from zipfile import ZipFile
-import shutil
 
 st.sidebar.title('ESMFold')
 st.sidebar.write('[*ESMFold*](https://esmatlas.com/about) is an end-to-end single sequence protein structure predictor based on the ESM-2 language model. For more information, read the [research article](https://www.biorxiv.org/content/10.1101/2022.07.20.500902v2) and the [news article](https://www.nature.com/articles/d41586-022-03539-1) published in *Nature*.')
@@ -13,12 +12,9 @@ st.sidebar.write('[*ESMFold*](https://esmatlas.com/about) is an end-to-end singl
 
 # stmol
 def render_mol(pdb):
-    #make the bfactor array using numpy here, and then create a function to colour it 'bfactor_palette'
     pdbview = py3Dmol.view()
     pdbview.addModel(pdb,'pdb')
     pdbview.setStyle({'cartoon':{'color':'spectrum'}})
-    #pdbview.setStyle({'cartoon': {'color': bfactor_palette}})
-    #pdbview.setStyle( {}, {cartoon: { colorfunc: colorByBFactor }});
     pdbview.setBackgroundColor('white')#('0xeeeeee')
     pdbview.zoomTo()
     pdbview.zoom(2, 800)
@@ -27,25 +23,20 @@ def render_mol(pdb):
     
     
 
-
+# Protein sequence input 
+DEFAULT_SEQ = ""
+txt = st.sidebar.text_area('Input sequence', DEFAULT_SEQ, height=275)
 line_data=''
 
 
 
 #Directory
 directory = 'my_folder'
-#if not os.path.exists(directory):
-    #This would save the directory from all previous sessions
-    #os.makedirs(directory)
-#if os.path.exists(directory):
-    #os.makedirs(directory)
-    
-if os.path.exists(directory):
-    shutil.rmtree(directory)
-os.makedirs(directory)
+if not os.path.exists(directory):
+    os.makedirs(directory)
 
-list_of_files={"Name":[],"Sequence":[]}
 uploaded_files = st.sidebar.file_uploader("Upload Fasta files", accept_multiple_files=True)
+list_of_files={"Name":[],"Sequence":[]}
 for uploaded_file in uploaded_files:
     bytes_data = uploaded_file.read()
     str_data = bytes_data.decode('utf-8')  # convert bytes to str
@@ -60,7 +51,7 @@ for uploaded_file in uploaded_files:
     response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=line_data)
     name = line_data[:3] + line_data[-3:]
     pdb_string = response.content.decode('utf-8')
-    
+
     with open(f'{directory}/{uploaded_file.name[:-3]}.pdb', 'w') as f:
         f.write(pdb_string)
     st.download_button(
@@ -69,16 +60,14 @@ for uploaded_file in uploaded_files:
         file_name=f'{uploaded_file.name[:-3]}.pdb',
         mime='text/plain',
     )
-    
     # save as third value of dictionary, add each item to a zip file for download
     struct = bsio.load_structure('predicted.pdb', extra_fields=["b_factor"])
-    #st.write(struct.array_length())
     b_value = round(struct.b_factor.mean(), 4)
-    #st.write(struct.b_factor())
+
     # Display protein structure
     st.subheader(f'Visualization of {uploaded_file.name[:-3]}')
     render_mol(pdb_string)
-   
+    
 #st.write(list_of_files)
 
 with ZipFile(f'{directory}.zip', 'w') as zip:
@@ -86,13 +75,15 @@ with ZipFile(f'{directory}.zip', 'w') as zip:
         zip.write(os.path.join(directory, file), file)
 
 # create a download button for the zip file
-st.sidebar.download_button(
+st.download_button(
     label="Download all files as zip",
     data=open(f'{directory}.zip', 'rb').read(),
     file_name=f'{directory}.zip'
 )
 
+
     
+
 
 # ESMfold
 def update(sequence=line_data):
@@ -128,16 +119,8 @@ def update(sequence=line_data):
     )
 
 
-# Protein sequence input 
-DEFAULT_SEQ = ""
-txt = st.sidebar.text_area('Input sequence', DEFAULT_SEQ, height=275)
-predict = st.sidebar.button('Predict', on_click=update)
-
-
-
-
     
-
+predict = st.sidebar.button('Predict', on_click=update)
 
 
 if not predict:
